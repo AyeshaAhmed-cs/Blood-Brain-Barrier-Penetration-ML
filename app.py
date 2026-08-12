@@ -91,10 +91,11 @@ test_molecules = {
 
 selected_option = st.sidebar.selectbox("Preset Compounds:", list(test_molecules.keys()))
 
+# Set default_smiles to empty string if Custom Input is picked
 if selected_option != "Custom Input":
     default_smiles = test_molecules[selected_option]
 else:
-    default_smiles = "CN1C=NC2=C1C(=O)N(C(=O)N2C)C"
+    default_smiles = ""
 
 st.sidebar.markdown("---")
 st.sidebar.info("""
@@ -120,53 +121,62 @@ with tab1:
 
     with col_input:
         st.subheader("📥 Input SMILES")
-        smiles = st.text_input("Enter Molecule SMILES String:", default_smiles)
+        smiles = st.text_input(
+            "Enter Molecule SMILES String:", 
+            value=default_smiles,
+            placeholder="Paste SMILES string here (e.g., CC(=O)OC1=CC=CC=C1C(=O)O)..."
+        )
         predict_btn = st.button("🔮 Predict Permeability", use_container_width=True, type="primary")
 
     with col_output:
         st.subheader("🎯 Prediction Output")
         
         if predict_btn:
-            mol = Chem.MolFromSmiles(smiles)
-            if mol is None:
-                st.error("❌ Invalid SMILES string! Please provide a valid chemical structure.")
+            if not smiles.strip():
+                st.warning("⚠️ Please enter or paste a SMILES string first!")
             else:
-                fp_np = np.array(mfpgen.GetFingerprint(mol))
-                mw = Descriptors.MolWt(mol)
-                logp = Descriptors.MolLogP(mol)
-                tpsa = Descriptors.TPSA(mol)
-                hbd = Descriptors.NumHDonors(mol)
-                hba = Descriptors.NumHAcceptors(mol)
-                rot = Descriptors.NumRotatableBonds(mol)
-
-                phys_desc = np.array([mw, logp, tpsa, hbd, hba, rot])
-                features = np.hstack((fp_np, phys_desc)).reshape(1, -1)
-
-                prob = model.predict_proba(features)[0][1]
-                pred = model.predict(features)[0]
-
-                if pred == 1:
-                    st.success(f"### Result: Permeable (Crosses BBB)")
+                mol = Chem.MolFromSmiles(smiles)
+                if mol is None:
+                    st.error("❌ Invalid SMILES string! Please check the structure and try again.")
                 else:
-                    st.error(f"### Result: Non-permeable (Blocked)")
+                    # Compute Features
+                    fp_np = np.array(mfpgen.GetFingerprint(mol))
+                    mw = Descriptors.MolWt(mol)
+                    logp = Descriptors.MolLogP(mol)
+                    tpsa = Descriptors.TPSA(mol)
+                    hbd = Descriptors.NumHDonors(mol)
+                    hba = Descriptors.NumHAcceptors(mol)
+                    rot = Descriptors.NumRotatableBonds(mol)
 
-                # Probability Gauge
-                st.write(f"**Permeability Probability:** `{prob * 100:.2f}%`")
-                st.progress(float(prob))
+                    phys_desc = np.array([mw, logp, tpsa, hbd, hba, rot])
+                    features = np.hstack((fp_np, phys_desc)).reshape(1, -1)
 
-                st.markdown("---")
-                st.markdown("#### 📐 Calculated Molecular Properties")
-                m_col1, m_col2, m_col3 = st.columns(3)
-                m_col1.metric("Mol. Weight", f"{mw:.1f} g/mol")
-                m_col2.metric("LogP (Lipophilicity)", f"{logp:.2f}")
-                m_col3.metric("TPSA", f"{tpsa:.1f} Å²")
+                    prob = model.predict_proba(features)[0][1]
+                    pred = model.predict(features)[0]
 
-                m_col4, m_col5, m_col6 = st.columns(3)
-                m_col4.metric("H-Donors", hbd)
-                m_col5.metric("H-Acceptors", hba)
-                m_col6.metric("Rotatable Bonds", rot)
+                    # Status Banner
+                    if pred == 1:
+                        st.success(f"### Result: Permeable (Crosses BBB)")
+                    else:
+                        st.error(f"### Result: Non-permeable (Blocked)")
+
+                    # Probability Gauge
+                    st.write(f"**Permeability Probability:** `{prob * 100:.2f}%`")
+                    st.progress(float(prob))
+
+                    st.markdown("---")
+                    st.markdown("#### 📐 Calculated Molecular Properties")
+                    m_col1, m_col2, m_col3 = st.columns(3)
+                    m_col1.metric("Mol. Weight", f"{mw:.1f} g/mol")
+                    m_col2.metric("LogP (Lipophilicity)", f"{logp:.2f}")
+                    m_col3.metric("TPSA", f"{tpsa:.1f} Å²")
+
+                    m_col4, m_col5, m_col6 = st.columns(3)
+                    m_col4.metric("H-Donors", hbd)
+                    m_col5.metric("H-Acceptors", hba)
+                    m_col6.metric("Rotatable Bonds", rot)
         else:
-            st.info("👈 Select or enter a SMILES string and click **Predict Permeability** to run the model.")
+            st.info("👈 Select a preset or paste any custom SMILES string from your dataset, then click **Predict Permeability**.")
 
 # ------------------------------------------------------------------------------
 # TAB 2: EXPLORATORY DATA ANALYSIS (NOTEBOOK PLOTS)
