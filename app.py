@@ -20,7 +20,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Force dark theme styling for plots to match Streamlit's dark aesthetic
 plt.style.use('dark_background')
 plt.rcParams.update({
     'figure.facecolor': '#0e1117',
@@ -45,7 +44,7 @@ def load_dataset():
     df = pd.read_csv('BBBP.csv')
     df_clean = df.dropna(subset=['smiles']).copy()
     
-    # Calculate physical descriptors for visualizations
+    # physical descriptors for visualizations
     mws, logps, tpsas, hbds, hbas, rots = [], [], [], [], [], []
     for s in df_clean['smiles']:
         mol = Chem.MolFromSmiles(s)
@@ -127,12 +126,11 @@ with tab1:
     with col_output:
         st.subheader("🎯 Prediction Output")
         
-        if predict_btn or smiles:
+        if predict_btn:
             mol = Chem.MolFromSmiles(smiles)
             if mol is None:
                 st.error("❌ Invalid SMILES string! Please provide a valid chemical structure.")
             else:
-                # Compute Features
                 fp_np = np.array(mfpgen.GetFingerprint(mol))
                 mw = Descriptors.MolWt(mol)
                 logp = Descriptors.MolLogP(mol)
@@ -147,7 +145,6 @@ with tab1:
                 prob = model.predict_proba(features)[0][1]
                 pred = model.predict(features)[0]
 
-                # Status Banner
                 if pred == 1:
                     st.success(f"### Result: Permeable (Crosses BBB)")
                 else:
@@ -168,6 +165,8 @@ with tab1:
                 m_col4.metric("H-Donors", hbd)
                 m_col5.metric("H-Acceptors", hba)
                 m_col6.metric("Rotatable Bonds", rot)
+        else:
+            st.info("👈 Select or enter a SMILES string and click **Predict Permeability** to run the model.")
 
 # ------------------------------------------------------------------------------
 # TAB 2: EXPLORATORY DATA ANALYSIS (NOTEBOOK PLOTS)
