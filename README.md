@@ -1,14 +1,84 @@
-# 🧠 Blood-Brain Barrier (BBB) Permeability Predictor
+# 🧠 Blood-Brain Barrier (BBB) Penetration Predictor & Dashboard
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](http://localhost:8501/)
-
-An interactive machine learning application built with **RDKit**, **Scikit-Learn**, and **Streamlit** to predict chemical compound permeability across the Blood-Brain Barrier.
+An end-to-end Machine Learning web application and exploratory data analysis pipeline built with **RDKit**, **Scikit-Learn**, and **Streamlit** to predict whether chemical compounds can cross the Blood-Brain Barrier based on their SMILES representations.
 
 🚀 **Live Interactive App:** [Launch Streamlit Dashboard](http://localhost:8501/)
 
 ---
 
 ## 📌 Project Overview
-- **Machine Learning Model:** Random Forest Classifier (1024-bit Morgan Fingerprints + 6 Physical Descriptors)
-- **Model Performance:** 89.7% Accuracy | 0.9518 ROC-AUC
-- **Key Features:** Real-time SMILES predictions, descriptor calculations, and dataset exploratory data analysis (EDA).
+
+The Blood-Brain Barrier (BBB) acts as a highly selective semipermeable border that protects the central nervous system. Accurately predicting whether a drug molecule can penetrate this barrier is a critical step in neuropharmaceutical drug discovery.
+
+This repository contains a complete pipeline ranging from molecular descriptor feature extraction and Exploratory Data Analysis (EDA) to a trained Random Forest classification model served through a fully styled interactive dark-mode **Streamlit dashboard**.
+
+---
+
+## ✨ Features & Architecture
+
+* **Interactive Predictor Workspace**: Paste any custom SMILES string or choose from preset compounds (Caffeine, Aspirin, Dopamine, Ibuprofen, Penicillin G) to instantly evaluate permeability probability.
+* **Advanced Molecular Feature Engineering**: Automatically computes 1024-bit **Morgan Fingerprints** (Radius 2) combined with 6 key physical chemical properties using **RDKit**:
+* Molecular Weight (MW)
+* Lipophilicity (LogP)
+* Topological Polar Surface Area (TPSA)
+* Hydrogen Bond Donors (HBD)
+* Hydrogen Bond Acceptors (HBA)
+* Rotatable Bonds
+
+
+* **Exploratory Data Analysis (EDA) Tab**: Visualizes dataset distributions, chemical property correlation heatmaps, and chemical space scatter plots (TPSA vs LogP).
+* **Optimized Model**: Trained via a Random Forest Classifier achieving strong predictive performance (0.9518 ROC-AUC).
+
+---
+
+## 🛠️ Tech Stack
+
+* **Programming Language:** Python
+* **Machine Learning & Chemoinformatics:** Scikit-Learn, RDKit, Joblib, NumPy, Pandas
+* **Data Visualization:** Matplotlib, Seaborn
+* **Web Framework:** Streamlit
+
+---
+
+## 📂 Repository Directory Structure
+
+```text
+blood-brain-barrier-penetration/
+│
+├── .streamlit/
+│   └── config.toml                # Permanent dark-mode styling configuration
+├── app.py                         # Main Streamlit dashboard script
+├── bbb_penetration_rf_model.pkl   # Serialized Random Forest model weights
+├── BBBP.csv                       # Molecular dataset containing SMILES and targets
+├── BBB_Penetration_Model.ipynb    # Jupyter Notebook detailing model training & EDA
+├── requirements.txt               # Project dependencies
+└── README.md                      # Project documentation
+
+```
+
+---
+
+## ⚙️ Installation & Local Execution
+
+To run this project locally on your machine, follow these steps:
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/AyeshaAhmed-cs/blood-brain-barrier-penetration.git
+cd blood-brain-barrier-penetration
+
+```
+
+
+2. **Install the required dependencies:**
+```bash
+pip install streamlit scikit-learn rdkit pandas numpy joblib matplotlib seaborn
+
+```
+
+
+3. **Launch the Streamlit dashboard:**
+```bash
+streamlit run app.py
+
+```
