@@ -40,19 +40,15 @@ This repository contains a complete pipeline ranging from molecular descriptor f
 
 ---
 
-## 📂 Repository Directory Structure
-
-```text
+📂 Repository Directory Structure
+Plaintext
 blood-brain-barrier-penetration/
 │
-├── .streamlit/
-│   └── config.toml                # Permanent dark-mode styling configuration
-├── app.py                         # Main Streamlit dashboard script
-├── bbb_penetration_rf_model.pkl   # Serialized Random Forest model weights
+├── BBBP (1).ipynb                 # Jupyter Notebook detailing model training & EDA
 ├── BBBP.csv                       # Molecular dataset containing SMILES and targets
-├── BBB_Penetration_Model.ipynb    # Jupyter Notebook detailing model training & EDA
-├── requirements.txt               # Project dependencies
-└── README.md                      # Project documentation
+├── README.md                      # Project documentation
+├── app.py                         # Main Streamlit dashboard script
+└── bbb_penetration_rf_model.pkl   # Serialized Random Forest model weights
 
 ```
 
