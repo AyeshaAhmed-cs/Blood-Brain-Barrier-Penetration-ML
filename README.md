@@ -2,7 +2,7 @@
 
 An end-to-end Machine Learning web application and exploratory data analysis pipeline built with **RDKit**, **Scikit-Learn**, and **Streamlit** to predict whether chemical compounds can cross the Blood-Brain Barrier based on their SMILES representations.
 
-🚀 **Live Interactive App:** [Launch Streamlit Dashboard](https://blood-brain-barrier-penetration-ml-tbejherqrmzyk3shufwb9e.streamlit.app/)
+🚀 **Live Interactive App:** [Launch Streamlit Dashboard](https://YOUR-APP-NAME.streamlit.app)
 
 ---
 
@@ -40,6 +40,7 @@ This repository contains a complete pipeline ranging from molecular descriptor f
 
 ## 📂 Repository Directory Structure
 
+```text
 blood-brain-barrier-penetration/
 │
 ├── BBBP (1).ipynb                 # Jupyter Notebook detailing model training & EDA
