@@ -4,7 +4,7 @@
 
 An end-to-end Machine Learning web application and exploratory data analysis pipeline built with **RDKit**, **Scikit-Learn**, and **Streamlit** to predict whether chemical compounds can cross the Blood-Brain Barrier based on their SMILES representations.
 
-🚀 **Live Interactive App:** [Launch Streamlit Dashboard](http://localhost:8501/)
+🚀 **Live Interactive App:** [Launch Streamlit Dashboard](https://blood-brain-barrier-penetration-ml-tbejherqrmzyk3shufwb9e.streamlit.app/)
 
 ---
 
