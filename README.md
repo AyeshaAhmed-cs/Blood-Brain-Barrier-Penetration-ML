@@ -49,19 +49,19 @@ blood-brain-barrier-penetration/
 ├── app.py                         # Main Streamlit dashboard script
 ├── bbb_penetration_rf_model.pkl   # Serialized Random Forest model weights
 └── requirements.txt               # Project dependencies for deployment
-
----
-
-## ⚙️ Installation & Local Execution
-
+⚙️ Installation & Local Execution
 To run this project locally on your machine, follow these steps:
 
-1. Clone the repository:
-   git clone https://github.com/AyeshaAhmed-cs/Blood-Brain-Barrier-Penetration-ML
-   cd Blood-Brain-Barrier-Penetration-ML
+Clone the repository:
 
-2. Install the required dependencies:
-   pip install -r requirements.txt
+Bash
+git clone https://github.com/AyeshaAhmed-cs/Blood-Brain-Barrier-Penetration-ML
+cd Blood-Brain-Barrier-Penetration-ML
+Install the required dependencies:
 
-3. Launch the Streamlit dashboard:
-   streamlit run app.py
+Bash
+pip install -r requirements.txt
+Launch the Streamlit dashboard:
+
+Bash
+streamlit run app.py
