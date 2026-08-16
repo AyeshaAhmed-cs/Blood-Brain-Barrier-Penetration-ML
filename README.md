@@ -1,5 +1,3 @@
----
-
 # 🧠 Blood-Brain Barrier (BBB) Penetration Predictor & Dashboard
 
 An end-to-end Machine Learning web application and exploratory data analysis pipeline built with **RDKit**, **Scikit-Learn**, and **Streamlit** to predict whether chemical compounds can cross the Blood-Brain Barrier based on their SMILES representations.
@@ -20,14 +18,12 @@ This repository contains a complete pipeline ranging from molecular descriptor f
 
 * **Interactive Predictor Workspace**: Paste any custom SMILES string or choose from preset compounds (Caffeine, Aspirin, Dopamine, Ibuprofen, Penicillin G) to instantly evaluate permeability probability.
 * **Advanced Molecular Feature Engineering**: Automatically computes 1024-bit **Morgan Fingerprints** (Radius 2) combined with 6 key physical chemical properties using **RDKit**:
-* Molecular Weight (MW)
-* Lipophilicity (LogP)
-* Topological Polar Surface Area (TPSA)
-* Hydrogen Bond Donors (HBD)
-* Hydrogen Bond Acceptors (HBA)
-* Rotatable Bonds
-
-
+  * Molecular Weight (MW)
+  * Lipophilicity (LogP)
+  * Topological Polar Surface Area (TPSA)
+  * Hydrogen Bond Donors (HBD)
+  * Hydrogen Bond Acceptors (HBA)
+  * Rotatable Bonds
 * **Exploratory Data Analysis (EDA) Tab**: Visualizes dataset distributions, chemical property correlation heatmaps, and chemical space scatter plots (TPSA vs LogP).
 * **Optimized Model**: Trained via a Random Forest Classifier achieving strong predictive performance (0.9518 ROC-AUC).
 
@@ -44,16 +40,14 @@ This repository contains a complete pipeline ranging from molecular descriptor f
 
 ## 📂 Repository Directory Structure
 
-```text
 blood-brain-barrier-penetration/
 │
 ├── BBBP (1).ipynb                 # Jupyter Notebook detailing model training & EDA
 ├── BBBP.csv                       # Molecular dataset containing SMILES and targets
 ├── README.md                      # Project documentation
 ├── app.py                         # Main Streamlit dashboard script
-└── bbb_penetration_rf_model.pkl   # Serialized Random Forest model weights
-
-```
+├── bbb_penetration_rf_model.pkl   # Serialized Random Forest model weights
+└── requirements.txt               # Project dependencies for deployment
 
 ---
 
@@ -61,23 +55,12 @@ blood-brain-barrier-penetration/
 
 To run this project locally on your machine, follow these steps:
 
-1. **Clone the repository:**
-```bash
-git clone https://github.com/AyeshaAhmed-cs/Blood-Brain-Barrier-Penetration-ML
-cd blood-brain-barrier-penetration
+1. Clone the repository:
+   git clone https://github.com/AyeshaAhmed-cs/Blood-Brain-Barrier-Penetration-ML
+   cd Blood-Brain-Barrier-Penetration-ML
 
-```
+2. Install the required dependencies:
+   pip install -r requirements.txt
 
-
-2. **Install the required dependencies:**
-```bash
-pip install streamlit scikit-learn rdkit pandas numpy joblib matplotlib seaborn
-
-```
-
-
-3. **Launch the Streamlit dashboard:**
-```bash
-streamlit run app.py
-
-```
+3. Launch the Streamlit dashboard:
+   streamlit run app.py
